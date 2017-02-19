@@ -71,7 +71,7 @@ public class CsvDrawParser
         {
             try
             {
-                out.println(num + ": " + line);
+//                out.println(num + ": " + line);
                 set.add(parse(line));
             }
             catch (Exception ex)

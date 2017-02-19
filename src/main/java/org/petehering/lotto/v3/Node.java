@@ -2,11 +2,9 @@ package org.petehering.lotto.v3;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.TreeMap;
 
 public class Node
@@ -16,6 +14,7 @@ public class Node
     private int hitCount;
     private double payout;
     private Map<Integer, Integer> hitsWith;
+    private int value;
 
     public Node(Integer number)
     {
@@ -30,6 +29,8 @@ public class Node
                 .append(Objects.toString(number))
                 .append(",\n    hitCount:")
                 .append(Objects.toString(hitCount))
+                .append(",\n    value:")
+                .append(Objects.toString(value))
                 .append(",\n    payout:")
                 .append(Objects.toString(payout))
                 .append(",\n    hitsWith: [");
@@ -77,6 +78,11 @@ public class Node
         return hitsWith.get(i) == null ? 0 : hitsWith.get(i);
     }
 
+    public int getValue()
+    {
+        return value;
+    }
+
     public void addToHitsWith(int i)
     {
         if (this.number != i)
@@ -100,5 +106,10 @@ public class Node
     public void addToHitCount(int i)
     {
         this.hitCount += i;
+    }
+    
+    public void addToValue(int i)
+    {
+        value += i;
     }
 }
