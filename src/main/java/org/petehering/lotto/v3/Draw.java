@@ -1,5 +1,6 @@
 package org.petehering.lotto.v3;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -25,6 +26,11 @@ public class Draw implements Serializable, Comparable<Draw>
         this.kicker = kicker;
         this.jackpot = jackpot;
         this.payout = payout;
+    }
+    
+    public void printTo(PrintStream out)
+    {
+        out.println(this.toString());
     }
 
     public Date getDate()
@@ -95,8 +101,8 @@ public class Draw implements Serializable, Comparable<Draw>
                 .append(numbers[4]).append(", ")
                 .append(numbers[5]).append(", ")
                 .append(kicker).append(", ")
-                .append(CFMT.format(jackpot)).append(", ")
-                .append(CFMT.format(payout))
+                .append(jackpot).append(", ")
+                .append(payout)
                 .toString();
     }
 
