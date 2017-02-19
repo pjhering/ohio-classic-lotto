@@ -19,8 +19,8 @@ public class Main
                 AnalysisSuite
                         .build(arg)
                         .add(new HitFrequency())
-                        .add(new ColumnCount())
-                        .add(new TotalPayout())
+//                        .add(new ColumnCount())
+//                        .add(new TotalPayout())
                         .add(new CountHitsWith())
                         .run(System.out);
             }

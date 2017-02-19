@@ -47,6 +47,7 @@ public class TotalPayout extends Analyzer implements Report
     public void print(PrintStream out) throws Exception
     {
         Map<Double, Integer> reversed = new TreeMap<>();
+        
         totals.forEach((i, d) ->
         {
             reversed.put(d, i);
