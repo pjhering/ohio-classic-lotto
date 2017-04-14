@@ -8,13 +8,18 @@ import java.util.TreeSet;
 public class Number implements Comparable<Number>
 {
     private final TreeSet<LocalDate> hits;
-    private final Integer VALUE;
+    public final Integer VALUE;
     private LocalDate next;
     
     public Number(Integer value)
     {
         this.VALUE = requireNonNull(value);
         hits = new TreeSet<>();
+    }
+    
+    public LocalDate getNext()
+    {
+        return next;
     }
     
     public void add(int year, int month, int day)
