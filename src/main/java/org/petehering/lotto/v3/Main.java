@@ -10,9 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import static org.petehering.lotto.v3.NodeComparator.Order.HIT_COUNT_ASC;
 import static org.petehering.lotto.v3.NodeComparator.Order.HIT_COUNT_DESC;
-import static org.petehering.lotto.v3.NodeComparator.Order.VALUE_ASC;
 import static org.petehering.lotto.v3.NodeComparator.Order.VALUE_DESC;
 
 public class Main
