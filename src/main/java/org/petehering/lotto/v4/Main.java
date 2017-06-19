@@ -1,16 +1,23 @@
 package org.petehering.lotto.v4;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import static java.lang.System.out;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main
 {
@@ -23,6 +30,7 @@ public class Main
         
         CsvDrawParser csv = new CsvDrawParser(root);
         TreeSet<Draw> draws = csv.parse();
+        saveBackupFile (draws);
         Map<Integer, Number> numbers = new HashMap<>();
         Calendar cal = Calendar.getInstance();
         
@@ -84,6 +92,27 @@ public class Main
         if(query == null)
         {
             query = LocalDate.now();
+        }
+    }
+
+    private static void saveBackupFile(TreeSet<Draw> draws)
+    {
+            Date today = new Date ();
+            SimpleDateFormat fmt = new SimpleDateFormat("MM-dd-yyyy");
+            File backup = new File("backup-" + fmt.format(today) + ".csv");
+            
+        try (PrintStream out = new PrintStream (new FileOutputStream (backup)))
+        {
+            draws.forEach(d ->
+            {
+                d.printTo(out);
+            });
+            
+            out.flush ();
+        }
+        catch(FileNotFoundException ex)
+        {
+            ex.printStackTrace();
         }
     }
 }

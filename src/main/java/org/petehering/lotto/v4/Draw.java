@@ -3,6 +3,7 @@ package org.petehering.lotto.v4;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -92,6 +93,8 @@ public class Draw implements Serializable, Comparable<Draw>
     @Override
     public String toString()
     {
+//        DecimalFormat nmbr = new DecimalFormat("#");
+//        nmbr.setMaximumFractionDigits(2);
         return new StringBuilder()
                 .append(DFMT.format(date)).append(", ")
                 .append(numbers[0]).append(", ")
@@ -101,8 +104,8 @@ public class Draw implements Serializable, Comparable<Draw>
                 .append(numbers[4]).append(", ")
                 .append(numbers[5]).append(", ")
                 .append(kicker).append(", ")
-                .append(jackpot).append(", ")
-                .append(payout)
+                .append(String.format("$%.2f", jackpot)).append(", ")
+                .append(String.format("%.2f", payout))
                 .toString();
     }
 

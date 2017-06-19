@@ -25,7 +25,7 @@ public class CsvDrawParser
     private final File ROOT;
     private final FilenameFilter FILTER = new FilenameFilter()
     {
-        private final Pattern GOOD = Pattern.compile("^ClassicLotto_.*csv$");
+        private final Pattern GOOD = Pattern.compile("^*.*csv$");
 
         @Override
         public boolean accept(File dir, String name)
@@ -61,6 +61,8 @@ public class CsvDrawParser
 
     private Collection<? extends Draw> parse(File f) throws Exception
     {
+        out.println(f.getName());
+        
         TreeSet<Draw> set = new TreeSet<>();
         FileReader reader = new FileReader(f);
         BufferedReader buffer = new BufferedReader(reader);
@@ -71,7 +73,7 @@ public class CsvDrawParser
         {
             try
             {
-//                out.println(num + ": " + line);
+                out.println(num + ": " + line);
                 set.add(parse(line));
             }
             catch (Exception ex)
