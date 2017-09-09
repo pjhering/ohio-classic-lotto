@@ -1,4 +1,4 @@
-package org.petehering.lotto.v4;
+package org.petehering.lotto.v5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,14 +7,8 @@ import java.io.PrintStream;
 import static java.lang.System.out;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeSet;
 
 public class Main
@@ -35,43 +29,43 @@ public class Main
     
     public static void main (TreeSet<Draw> draws)
     {
-        Map<Integer, Number> numbers = new HashMap<>();
-        Calendar cal = Calendar.getInstance();
-        
-        for(Draw d : draws)
+        Page[] pages = new Page[50];
+        for (int i = 0; i < pages.length; i++)
         {
-            int[] array = d.getNumbers();
+            pages[i] = new Page (i);
+        }
+        
+        for (Draw d : draws)
+        {
+            int[] nums = d.getNumbers();
             
-            for(Integer i : array)
+            for (int i = 0; i < nums.length; i++)
             {
-                cal.setTime(d.getDate());
+                Page p1 = pages[nums[i]];
                 
-                if(!numbers.containsKey(i))
+                for (int j = 0; j < nums.length; j++)
                 {
-                    numbers.put(i, new Number(i));
+                    Page p2 = pages[nums[j]];
+                    
+                    p1.addLinkTo(p2);
                 }
-                
-                Number n = numbers.get(i);
-                n.add(cal.get(YEAR), 1 + cal.get(MONTH), cal.get(DAY_OF_MONTH));
             }
         }
         
-        TreeSet<Number> finished = new TreeSet<>();
-        
-        numbers.forEach((key, value)->{
-            value.finish();
-            finished.add(value);
-        });
-        
-        finished.forEach(n ->
+        for (int i = 0; i < 4; i++)
         {
-            LocalDate next = n.getNext();
-            long between = next.isBefore(query)?
-                    ChronoUnit.DAYS.between(next, query):
-                    ChronoUnit.DAYS.between(query, next);
-            String text = String.format("%-5d%-20s%d", n.VALUE, next, between);
-            out.println(text);
-        });
+            for (Page p : pages)
+            {
+                p.pass(i);
+            }
+        }
+        
+        Arrays.sort(pages);
+        
+        for (Page p : pages)
+        {
+            out.println (p);
+        }
     }
     
     private static void parse(String[] args)
